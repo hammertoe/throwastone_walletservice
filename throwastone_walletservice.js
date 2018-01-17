@@ -32,9 +32,13 @@ app.get('/accounts/:address', function (req, res) {
     }
 
     promise.then(info => {
-	return res.status(200).json(info)
+	api.getSettings(address).then(settings => {
+	    var data = Object.assign({}, info, settings)
+	    return res.status(200).json(data)
+	})
     }).catch(error => {
 	//	RippledError: actNotFound
+	throw error
 	return res.status(404).json({ error: 'Account not found' , value: address});
     })
 
