@@ -38,7 +38,6 @@ app.get('/accounts/:address', function (req, res) {
 	})
     }).catch(error => {
 	//	RippledError: actNotFound
-	throw error
 	return res.status(404).json({ error: 'Account not found' , value: address});
     })
 
